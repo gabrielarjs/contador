@@ -1,196 +1,358 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Para Você — Nós</title>
-  <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#ff6b81;--muted:#9aa4b2;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071021 0%, #081629 60%);color:#e6eef8}
-    .wrap{max-width:980px;margin:32px auto;padding:24px}
-    header{display:flex;gap:18px;align-items:center}
-    .logo{width:68px;height:68px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#ff9aa2);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:30px;box-shadow:0 6px 20px rgba(255,107,129,.12)}
-    h1{margin:0;font-size:28px}
-    p.lead{margin:4px 0 0;color:var(--muted)}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:18px;border-radius:16px;margin-top:20px;box-shadow:0 6px 30px rgba(2,6,23,.6)}
+<title>Feliz 4.0 ❤️</title>
 
-    .timer{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .time-pill{background:rgba(255,255,255,0.03);padding:12px 16px;border-radius:12px;min-width:90px;text-align:center}
-    .time-pill b{display:block;font-size:20px}
-    .since{margin-top:10px;color:var(--muted);font-size:14px}
+<style>
 
-    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
-    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;cursor:pointer;transition:transform .2s}
-    .gallery img:hover{transform:scale(1.03)}
+:root{
+--bg:#fff5f6;
+--card:#ffffff;
+--accent:#e63946;
+--accent-soft:#ffccd2;
+--muted:#7a5c5c;
+font-family:Inter,system-ui;
+}
 
-    .messages{margin-top:18px}
-    .msg{padding:14px;border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);margin-bottom:10px}
+body{
+margin:0;
+background:linear-gradient(180deg,#fff5f6,#ffe3e6);
+color:#3b2c2c;
+}
 
-    footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
-    .heart{font-size:20px;color:var(--accent)}
+.wrap{
+max-width:1000px;
+margin:auto;
+padding:30px;
+}
 
-    /* modal */
-    .modal{position:fixed;inset:0;background:rgba(2,6,23,.7);display:none;align-items:center;justify-content:center;padding:20px}
-    .modal.open{display:flex}
-    .modal img{max-width:100%;max-height:80vh;border-radius:12px}
+header{
+text-align:center;
+margin-bottom:20px;
+}
 
-    /* responsive */
-    @media (max-width:800px){.gallery{grid-template-columns:repeat(2,1fr)}.wrap{padding:16px}}
-    @media (max-width:480px){.gallery img{height:120px}.time-pill{min-width:72px;padding:10px}}
+h1{
+color:var(--accent);
+font-size:40px;
+margin-bottom:5px;
+}
 
-    /* small floating controls */
-    .controls{position:fixed;right:16px;bottom:18px;display:flex;flex-direction:column;gap:10px}
-    .btn{background:linear-gradient(180deg,var(--accent),#ff9aa2);border:none;color:white;padding:10px 14px;border-radius:12px;cursor:pointer;box-shadow:0 8px 30px rgba(255,107,129,.14)}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
-  </style>
+h2{
+color:#c1121f;
+}
+
+.card{
+background:var(--card);
+padding:25px;
+border-radius:16px;
+margin-top:25px;
+box-shadow:0 10px 30px rgba(200,0,0,0.08);
+border:1px solid var(--accent-soft);
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:12px;
+margin-top:15px;
+}
+
+.gallery img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px;
+opacity:0;
+transform:scale(0.9);
+transition:all 0.8s ease;
+}
+
+.gallery img.show{
+opacity:1;
+transform:scale(1);
+}
+
+.timer{
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+.time-pill{
+background:var(--accent-soft);
+padding:12px 16px;
+border-radius:10px;
+text-align:center;
+color:#7a1c1c;
+}
+
+.time-pill b{
+display:block;
+font-size:20px;
+color:var(--accent);
+}
+
+footer{
+margin-top:40px;
+text-align:center;
+color:var(--muted);
+font-size:15px;
+}
+
+.fade-up{
+opacity:0;
+transform:translateY(30px);
+transition:all 0.8s ease;
+}
+
+.fade-up.show{
+opacity:1;
+transform:translateY(0);
+}
+
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <div class="logo">❤</div>
-      <div>
-        <h1>Para você — cada segundo importa</h1>
-        <p class="lead">Desde o dia que começamos: 16 de novembro às 16:00 — esse contador mostra cada momento que passamos juntos.</p>
-      </div>
-    </header>
 
-    <section class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div>
-          <h2 style="margin:0">Tempo juntos</h2>
-          <div class="since">Início: <strong>16/11/2025 16:00</strong></div>
-        </div>
-        <div style="text-align:center">
-          <div style="font-size:12px;color:var(--muted)">Amor acumulado</div>
-          <div style="font-weight:700;font-size:18px">Você + Eu</div>
-        </div>
-      </div>
+<div class="wrap">
 
-      <div style="margin-top:16px" class="timer" id="timer">
-        <div class="time-pill"><b id="years">0</b>anos</div>
-        <div class="time-pill"><b id="months">0</b>meses</div>
-        <div class="time-pill"><b id="days">0</b>d</div>
-        <div class="time-pill"><b id="hours">0</b>h</div>
-        <div class="time-pill"><b id="minutes">0</b>m</div>
-        <div class="time-pill"><b id="seconds">0</b>s</div>
-      </div>
-    </section>
+<header>
+<h1>❤️ Feliz 4.0 ❤️</h1>
+<p>Quatro meses incríveis ao seu lado.</p>
+</header>
 
-    <section class="card">
-      <h3>Fotos (clique para ampliar)</h3>
-      <div class="gallery" id="gallery">
-        <!-- troque as imagens abaixo pelas suas próprias -->
-        <img src="imgs/1.jpeg" alt="foto1">
-        <img src="imgs/2.jpeg" alt="foto2">
-        <img src="imgs/3.jpeg" alt="foto3">
-        <img src="imgs/4.jpeg" alt="foto4">
-        <img src="imgs/5.jpeg" alt="foto5">
-        <img src="imgs/6.jpeg" alt="foto6">
-      </div>
-    </section>
 
-    <section class="card messages">
-      <h3>Mensagens</h3>
-      <div id="messages-list">
-        <!-- mensagens serão inseridas aqui -->
-      </div>
-    </section>
+<section class="card fade-up">
 
-    <footer>
-      <div>Feito com <span class="heart">❤</span> especialmente para você.</div>
-    </footer>
+<p>
+Amor, nesse dia especial para nós, eu gostaria de fazer algo à mão, personalizado.
+Porém eu não sou muito bom em escrever, desenhar ou fazer coisas manuais.
+</p>
 
-  </div>
+<p>
+Mas eu sou um bom programador… então decidi fazer essa página.
+</p>
 
-  <div class="modal" id="modal">
-    <img id="modal-img" src="" alt="ampliada">
-  </div>
+<p>
+Aqui eu quero guardar alguns dos nossos momentos,
+relembrar nossa história e mostrar o quanto eu te amo
+e o quanto sou feliz por ter você ao meu lado.
+</p>
 
-  <div class="controls">
-    <label class="btn ghost" title="Trocar as fotos localmente">
-      <input id="fileInput" type="file" accept="image/*" multiple style="display:none">Adicionar fotos
-    </label>
-    <button class="btn" id="toggleMsgs">Mostrar mensagens</button>
-  </div>
+</section>
 
-  <script>
-    // --- CONFIGURAR AQUI: data/hora de início (fuso -03:00 para São Paulo) ---
-    const startISO = '2025-11-16T16:00:00-03:00';
-    const startDate = new Date(startISO);
 
-    // mensages românticas - edite para as suas próprias
-    const messages = [
-      'Desde o primeiro sorriso você mudou tudo em mim.',
-      'Com você cada momento vira lembrança bonita.',
-      'Você é meu lugar favorito.',
-    ];
+<section class="card fade-up">
 
-    // preencher mensagens (inicialmente ocultas)
-    const msgsEl = document.getElementById('messages-list');
-    function renderMessages() {
-      msgsEl.innerHTML = '';
-      messages.forEach(m => {
-        const d = document.createElement('div'); d.className='msg'; d.textContent = m;
-        msgsEl.appendChild(d);
-      });
-    }
-    renderMessages();
-    msgsEl.style.display = 'none';
+<h2>❤️ O Começo</h2>
+<p>Ainda estavamos nos conhecendo, mas desde o começo já sabia que você era a pessoa certa</p>
 
-    // toggle mensagens
-    document.getElementById('toggleMsgs').addEventListener('click', ()=>{
-      msgsEl.style.display = msgsEl.style.display === 'none' ? 'block' : 'none';
-    });
+<div class="gallery">
+<img src="imgs/comeco.jpeg">
+</div>
 
-    // gallery modal
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modal-img');
-    document.getElementById('gallery').addEventListener('click',(e)=>{
-      if(e.target.tagName==='IMG'){
-        modalImg.src = e.target.src;
-        modal.classList.add('open');
-      }
-    });
-    modal.addEventListener('click',()=>modal.classList.remove('open'));
+</section>
 
-    // permitir upload de imagens locais (arrastar e soltar não implementado para simplicidade)
-    document.getElementById('fileInput').addEventListener('change', (ev)=>{
-      const files = Array.from(ev.target.files).slice(0,12);
-      const gallery = document.getElementById('gallery');
-      gallery.innerHTML = '';
-      files.forEach(file=>{
-        const url = URL.createObjectURL(file);
-        const img = document.createElement('img'); img.src = url; gallery.appendChild(img);
-      });
-    });
 
-    // contador (anos/meses/dias/h/m/s) - aproximação de meses como 30 dias e anos como 365 dias
-    function updateTimer(){
-      const now = new Date();
-      let diff = Math.max(0, now - startDate); // ms
-      const totalSeconds = Math.floor(diff/1000);
-      let seconds = totalSeconds % 60;
-      let minutes = Math.floor(totalSeconds/60) % 60;
-      let hours = Math.floor(totalSeconds/3600) % 24;
-      let daysTotal = Math.floor(totalSeconds/86400);
-      const years = Math.floor(daysTotal/365);
-      daysTotal -= years*365;
-      const months = Math.floor(daysTotal/30);
-      const days = daysTotal - months*30;
+<section class="card fade-up">
 
-      document.getElementById('years').textContent = years;
-      document.getElementById('months').textContent = months;
-      document.getElementById('days').textContent = days;
-      document.getElementById('hours').textContent = hours;
-      document.getElementById('minutes').textContent = minutes;
-      document.getElementById('seconds').textContent = seconds;
-    }
-    updateTimer();
-    setInterval(updateTimer,1000);
+<h2>💍 O Pedido</h2>
+<p>Dia 16 de Novembro de 2025, o dia mais especial do nosso relacionamento. Depois de dois meses juntos, finalmente fiz o pedido.</p>
 
-    // dica: altere startISO no topo para outra data caso precise
-  </script>
+<div class="gallery">
+<img src="imgs/pedido.jpg">
+</div>
+
+</section>
+
+
+<section class="card fade-up">
+
+<h2>🙏 Aparecida</h2>
+<p>Um passeio muito espcial, para agradecermos a Deus pela nossa união!</p>
+
+<div class="gallery">
+<img src="imgs/aparecida1.jpeg">
+<img src="imgs/aparecida2.jpeg">
+</div>
+
+</section>
+
+
+<section class="card fade-up">
+
+<h2>🎄 Natal em Família</h2>
+<p>Dia 24 de Dezembro de 2025, comemoramos o Natal na sua casa</p>
+<div class="gallery">
+<img src="imgs/natal1.jpeg">
+<img src="imgs/natal2.jpeg">
+</div>
+
+</section>
+
+
+<section class="card fade-up">
+
+<h2>✈️ Primeira Viagem Juntos</h2>
+<p>No final do ano fizemos nossa primeira viajem juntos, passei uma semana incrivel na Praia Grande, na melhor compania do mundo</p>
+<div class="gallery">
+<img src="imgs/viagem1.jpg">
+<img src="imgs/viagem2.jpeg">
+<img src="imgs/viagem3.jpeg">
+</div>
+
+</section>
+
+
+<section class="card fade-up">
+
+<h2>🌿 Trilha</h2>
+<p>Esse ano, saimos para fazer uma trilha no pico do Jaragua, o lugar era meio cabuloso kkkk mas foi muito divertido subir a trilha ao seu lado amor.</p>
+
+<div class="gallery">
+<img src="imgs/trilha1.jpeg">
+<img src="imgs/trilha2.jpeg">
+<img src="imgs/trilha3.jpeg">
+</div>
+
+</section>
+
+
+<section class="card fade-up">
+
+<h2>📸 Momentos</h2>
+<p>Alguns momentos nosso, sendo felizes no simples</p>
+
+<div class="gallery">
+<img src="imgs/momentos1.jpeg">
+<img src="imgs/momentos2.jpeg">
+<img src="imgs/momentos3.jpeg">
+</div>
+
+</section>
+
+
+<section class="card fade-up">
+
+<h2>⏳ Tempo Juntos</h2>
+
+<div class="timer">
+
+<div class="time-pill">
+<b id="months">0</b>
+meses
+</div>
+
+<div class="time-pill">
+<b id="days">0</b>
+dias
+</div>
+
+<div class="time-pill">
+<b id="hours">0</b>
+horas
+</div>
+
+<div class="time-pill">
+<b id="minutes">0</b>
+min
+</div>
+
+<div class="time-pill">
+<b id="seconds">0</b>
+seg
+</div>
+
+</div>
+
+<p style="color:#7a5c5c">Desde 16/11/2025 às 16:00</p>
+
+</section>
+
+
+<section class="card fade-up">
+
+<h2>✨ Próximas Etapas</h2>
+
+<ul>
+<li>Em maio faremos nossa proxima viagem juntos</li>
+<li>Temremos mais momentos felizes, leves e divertidos</li>
+<li>E um dia teremos nossa geladeira de duas portas</li>
+</ul>
+
+<p>Conforme formos completandos mais meses juntos, eu irei atualizar cada vez mais essa pagina</p>
+
+</section>
+
+
+<footer>
+
+<p>
+Obrigado por fazer parte da minha vida.<br>
+Eu te amo ❤️
+</p>
+
+</footer>
+
+</div>
+
+
+<script>
+
+const startDate = new Date("2025-11-16T16:00:00");
+
+function updateTimer(){
+
+const now = new Date();
+let diff = now - startDate;
+
+const seconds = Math.floor(diff/1000)%60;
+const minutes = Math.floor(diff/60000)%60;
+const hours = Math.floor(diff/3600000)%24;
+const days = Math.floor(diff/86400000)%30;
+const months = Math.floor(diff/(86400000*30));
+
+document.getElementById("months").textContent = months;
+document.getElementById("days").textContent = days;
+document.getElementById("hours").textContent = hours;
+document.getElementById("minutes").textContent = minutes;
+document.getElementById("seconds").textContent = seconds;
+
+}
+
+setInterval(updateTimer,1000);
+
+
+
+const observer = new IntersectionObserver((entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+entry.target.classList.add("show")
+}
+
+})
+
+},{threshold:0.2})
+
+
+document.querySelectorAll(".fade-up").forEach(el=>{
+observer.observe(el)
+})
+
+
+document.querySelectorAll(".gallery img").forEach(img=>{
+observer.observe(img)
+})
+
+</script>
+
 </body>
 </html>
