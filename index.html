@@ -1,318 +1,756 @@
 <!doctype html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Feliz 5.0 ❤️</title>
-
+<title>Feliz 6 Meses ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-:root{
---bg:#140a1f;
---card:#2e1a47;
---accent:#9d4edd;
---accent-strong:#7b2cbf;
---accent-soft:#cdb4db;
---gradient-start:#140a1f;
---gradient-end:#2a0f3f;
---text:#f5edff;
---muted:#d6c6e1;
-font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+:root {
+  --bg: #0d0608;
+  --bg2: #180b10;
+  --card: rgba(255,255,255,0.04);
+  --card-border: rgba(220,80,100,0.18);
+  --rose: #e8455a;
+  --rose-light: #f28096;
+  --rose-pale: #ffd6de;
+  --gold: #e8c07a;
+  --text: #fdf0f2;
+  --muted: #c9a0a8;
+  --body-font: 'Lato', sans-serif;
+  --display-font: 'Playfair Display', serif;
 }
 
-body{
-margin:0;
-background:linear-gradient(180deg,var(--gradient-start),var(--gradient-end));
-color:var(--text);
-background-image: url("https://capricho.abril.com.br/wp-content/uploads/2017/01/enrolados-vai-ter-continuacao-serie-ja-tem-trailer.jpg?quality=85&strip=info&w=1024");
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--body-font);
+  font-weight: 300;
+  line-height: 1.75;
+  overflow-x: hidden;
 }
 
-.wrap{
-max-width:1000px;
-margin:auto;
-padding:30px;
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
 }
 
-header{
-text-align:center;
-margin-bottom:20px;
+/* ── RADIAL GLOW BG ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(180,30,60,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 80%, rgba(220,60,90,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(13,6,8,0) 0%, #0d0608 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-h1{
-color:var(--accent);
-font-size:42px;
-margin-bottom:5px;
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: auto;
+  padding: 0 24px 80px;
 }
 
-h2{
-color:var(--accent-soft);
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 90px 20px 60px;
+  position: relative;
 }
 
-header p{
-font-size:18px;
-color:var(--muted);
+.hero-eyebrow {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
 }
 
-.card{
-background:var(--card);
-padding:25px;
-border-radius:16px;
-margin-top:25px;
-box-shadow:0 10px 30px rgba(0,0,0,0.35);
-border:1px solid rgba(157,78,221,0.25);
+.hero h1 {
+  font-family: var(--display-font);
+  font-size: clamp(52px, 12vw, 92px);
+  font-weight: 700;
+  line-height: 1.0;
+  color: var(--text);
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.4s forwards;
 }
 
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:12px;
-margin-top:15px;
+.hero h1 span {
+  color: var(--rose);
+  font-style: italic;
 }
 
-.gallery img{
-width:100%;
-height:180px;
-object-fit:cover;
-border-radius:10px;
-opacity:0;
-transform:scale(0.9);
-transition:all 0.8s ease;
+.hero-sub {
+  font-family: var(--display-font);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--muted);
+  margin-top: 16px;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.6s forwards;
 }
 
-.gallery img.show{
-opacity:1;
-transform:scale(1);
+.hero-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  margin: 28px auto;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.7s forwards;
 }
 
-.timer{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-margin-top:10px;
+.hero-intro {
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.9;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.8s forwards;
 }
 
-.time-pill{
-background:rgba(157,78,221,0.15);
-padding:12px 16px;
-border-radius:10px;
-text-align:center;
-color:var(--text);
+/* ── TIMER ── */
+.timer-section {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 36px 0 0;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 1s forwards;
 }
 
-.time-pill b{
-display:block;
-font-size:20px;
-color:var(--accent);
+.time-pill {
+  background: rgba(232,69,90,0.1);
+  border: 1px solid rgba(232,69,90,0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  text-align: center;
+  min-width: 68px;
 }
 
-footer{
-margin-top:40px;
-text-align:center;
-color:var(--muted);
-font-size:15px;
+.time-pill b {
+  display: block;
+  font-family: var(--display-font);
+  font-size: 28px;
+  color: var(--rose-light);
+  line-height: 1;
+  margin-bottom: 4px;
 }
 
-.fade-up{
-opacity:0;
-transform:translateY(30px);
-transition:all 0.8s ease;
+.time-pill span {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.fade-up.show{
-opacity:1;
-transform:translateY(0);
+/* ── SECTION LABEL ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 60px 0 0;
 }
 
-ul li{
-margin-bottom:8px;
+.section-label::before, .section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232,69,90,0.3));
+}
+.section-label::after {
+  background: linear-gradient(270deg, transparent, rgba(232,69,90,0.3));
+}
+
+.section-label span {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rose);
+  white-space: nowrap;
+}
+
+/* ── MONTH CARD ── */
+.month-card {
+  margin-top: 28px;
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  background: var(--card);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.month-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.month-card-header {
+  padding: 26px 30px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.month-number {
+  font-family: var(--display-font);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(232,69,90,0.12);
+  letter-spacing: -0.04em;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.month-title-block { flex: 1; padding-top: 6px; }
+
+.month-badge {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--rose);
+  font-weight: 700;
+}
+
+.month-title {
+  font-family: var(--display-font);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+.month-title em {
+  color: var(--rose-light);
+  font-style: italic;
+}
+
+/* ── GALLERY ── */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 20px 30px 0;
+}
+
+@media (max-width: 600px) {
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+.gallery-slot {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px dashed rgba(232,69,90,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.gallery-slot-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: rgba(232,69,90,0.35);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 8px;
+}
+
+.gallery-slot-placeholder svg {
+  width: 28px;
+  height: 28px;
+  opacity: 0.5;
+}
+
+/* ── MONTH BODY ── */
+.month-body {
+  padding: 22px 30px 26px;
+}
+
+.month-text {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+/* ── MUSIC BUTTON ── */
+.music-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 11px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(232,69,90,0.35);
+  background: rgba(232,69,90,0.08);
+  color: var(--rose-light);
+  font-family: var(--body-font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.music-btn:hover {
+  background: rgba(232,69,90,0.18);
+  border-color: rgba(232,69,90,0.6);
+  transform: translateY(-1px);
+}
+
+.music-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ── SPECIAL CARD (O Pedido / 6 meses) ── */
+.special-card {
+  border-color: rgba(232,69,90,0.4);
+  background: linear-gradient(135deg, rgba(232,69,90,0.08) 0%, rgba(13,6,8,0) 60%);
+}
+
+/* ── FUTURE SECTION ── */
+.future-card {
+  margin-top: 28px;
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  background: var(--card);
+  padding: 30px 30px 34px;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.future-card.visible { opacity: 1; transform: translateY(0); }
+
+.future-card h2 {
+  font-family: var(--display-font);
+  font-size: 28px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.future-card h2 em { color: var(--rose-light); font-style: italic; }
+
+.future-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+.future-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.future-list li::before {
+  content: '♡';
+  color: var(--rose);
+  font-size: 14px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* ── PLAYLIST ── */
+.playlist-card {
+  margin-top: 28px;
+  border: 1px solid rgba(232,200,100,0.2);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(232,192,122,0.06) 0%, rgba(13,6,8,0) 60%);
+  padding: 30px 30px 34px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.playlist-card.visible { opacity: 1; transform: translateY(0); }
+
+.qr-box {
+  width: 110px;
+  height: 110px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px dashed rgba(232,192,122,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgba(232,192,122,0.4);
+  font-size: 11px;
+  text-align: center;
+  letter-spacing: 0.08em;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.playlist-text h3 {
+  font-family: var(--display-font);
+  font-size: 22px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.playlist-text p {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 440px;
+  line-height: 1.8;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 60px 0 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+footer.visible { opacity: 1; transform: translateY(0); }
+
+.footer-heart {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+footer p {
+  font-family: var(--display-font);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+footer strong { color: var(--rose-light); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.12); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 560px) {
+  .month-card-header { flex-direction: column; gap: 4px; }
+  .month-number { font-size: 52px; }
+  .gallery { padding: 16px 16px 0; }
+  .month-body { padding: 18px 16px 22px; }
+  .future-card, .playlist-card { padding: 22px 18px 26px; }
+  .wrap { padding: 0 14px 60px; }
 }
 </style>
 </head>
-
 <body>
 
 <div class="wrap">
 
-<header>
-<h1>❤️ Feliz 5 Meses ❤️</h1>
-<p>Cinco meses incríveis ao seu lado, construindo memórias e vivendo o nosso amor.</p>
-</header>
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <p class="hero-eyebrow">16 de novembro de 2025 — 16 de maio de 2026</p>
+    <h1>Feliz <span>6</span><br>Meses</h1>
+    <p class="hero-sub">Nossa história, mês a mês.</p>
+    <div class="hero-divider"></div>
+    <p class="hero-intro">
+      Seis meses de amor, viagens, risos e cumplicidade. Cada momento vivido ao seu lado é uma página de uma história que quero escrever para sempre.
+    </p>
 
-<section class="card fade-up">
-<p>
-Amor, como prometido há alguns meses, estou atualizando o nosso site para celebrar mais um capítulo da nossa história, adicionando novos momentos inesquecíveis que vivemos juntos.
-</p>
+    <div class="timer-section">
+      <div class="time-pill"><b id="t-months">0</b><span>meses</span></div>
+      <div class="time-pill"><b id="t-days">0</b><span>dias</span></div>
+      <div class="time-pill"><b id="t-hours">0</b><span>horas</span></div>
+      <div class="time-pill"><b id="t-minutes">0</b><span>min</span></div>
+      <div class="time-pill"><b id="t-seconds">0</b><span>seg</span></div>
+    </div>
+  </div>
 
-<p>
-Enfim chegou o nosso 5º mês de namoro — e justamente no dia da minha formatura. Para mim, isso é um sinal de que nossos destinos estão entrelaçados e de que ainda viveremos muitas conquistas e momentos especiais, assim como temos vivido desde o dia <strong>16/11/2025</strong>.
-</p>
+  <!-- ── O PEDIDO ── -->
+  <div class="section-label"><span>O início</span></div>
 
-<p>
-Que Deus continue abençoando a nossa relação, pois a cada dia sou mais feliz por estar ao lado de uma mulher tão maravilhosa. Nossa viagem está chegando, e com ela virão novas lembranças inesquecíveis.
-</p>
+  <div class="month-card special-card reveal">
+    <div class="month-card-header">
+      <div class="month-number">♡</div>
+      <div class="month-title-block">
+        <p class="month-badge">16 de Abril de 2025</p>
+        <h2 class="month-title">O Pedido &amp; <em>o Sim</em></h2>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-slot"><img src="imgs/pedido.jpg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+    </div>
+    <div class="month-body">
+      <p class="month-text">No dia 16 de abril de 2025, estávamos apenas a um mês juntos, porém eu já sabia que era você a pessoa certa. Te levei na roda-gigante, pegamos uma cabine só para nós, ouvimos nossas músicas favoritas, tomamos aquele vinho rosé, comemos aquele chocolate meio duvidoso — e quando você menos esperava, eu te mostrei a aliança e te pedi em namoro. Para minha felicidade, você disse sim. Foi um momento muito especial, que ficará guardado para sempre em nossas memórias como o início de uma linda história de amor.</p>
+      <a class="music-btn" href="https://open.spotify.com/search/Te%20assumir%20pro%20Brasil%20Matheus%20e%20Kauan" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.622.622 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.622.622 0 11-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.72a.779.779 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 01-.973-.519.781.781 0 01.52-.972c3.632-1.102 8.147-.568 11.233 1.329a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.794c3.527-1.07 9.393-.863 13.101 1.333a.936.936 0 01-.941 1.62z"/></svg>
+        Te Assumir pro Brasil — Matheus e Kauan
+      </a>
+    </div>
+  </div>
 
-<p>
-Que possamos continuar crescendo juntos, compartilhando sonhos, ideais e um futuro repleto de amor. Seguiremos firmes, lado a lado, em busca de tudo aquilo que desejamos.
-</p>
+  <!-- ── MESES ── -->
+  <div class="section-label"><span>Nossa história</span></div>
 
-<p><strong>Feliz 5 meses, meu amor. Eu te amo! ❤️</strong></p>
-</section>
+  <!-- 1 Mês -->
+  <div class="month-card reveal">
+    <div class="month-card-header">
+      <div class="month-number">01</div>
+      <div class="month-title-block">
+        <p class="month-badge">1º Mês — Dezembro de 2025</p>
+        <h2 class="month-title">O que <em>ninguém fez</em></h2>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-slot"><img src="imgs/aparecida1.jpeg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><img src="imgs/aparecida2.jpeg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><img src="imgs/natal1.jpeg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><img src="imgs/viagem1.jpg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+    </div>
+    <div class="month-body">
+      <p class="month-text">O primeiro mês não poderia ter sido melhor — passou tão rápido, mas aconteceu tanta coisa! Seu aniversário, nossa viagem para Aparecida do Norte, o Natal em família, a viagem para a praia no Ano Novo... Vivemos intensamente e fomos muito felizes juntos. É como diz o Matheus e Kauan: "O que na vida ninguém fez, você fez em menos de um mês."</p>
+      <a class="music-btn" href="https://www.youtube.com/results?search_query=Zoio+de+Lula+Charlie+Brown+Jr" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Zoio de Lula — Charlie Brown Jr
+      </a>
+    </div>
+  </div>
 
-<section class="card fade-up">
-<h2>❤️ O Começo</h2>
-<p>Ainda estávamos nos conhecendo, mas desde o início eu já sentia que você era a pessoa certa para mim.</p>
-<div class="gallery">
-<img src="imgs/comeco.jpeg">
-</div>
-</section>
+  <!-- 2 Meses -->
+  <div class="month-card reveal">
+    <div class="month-card-header">
+      <div class="month-number">02</div>
+      <div class="month-title-block">
+        <p class="month-badge">2º Mês — Janeiro de 2026</p>
+        <h2 class="month-title">Momentos <em>inesquecíveis</em></h2>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-slot"><img src="imgs/trilha1.jpeg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><img src="imgs/trilha2.jpeg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><img src="imgs/corrida1.PNG" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><img src="imgs/momentos1.jpeg" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+    </div>
+    <div class="month-body">
+      <p class="month-text">O segundo mês fizemos nossa segunda viagem juntos, para Mairiporã no sítio della Volpe. Subimos o Pico do Jaraguá, passamos a tarde no clube, passeamos no Parque do Carmo — curtimos bastante e vivemos momentos inesquecíveis juntos, unidos pelo amor.</p>
+      <a class="music-btn" href="https://open.spotify.com/search/Inesperado%20Jorge%20e%20Mateus" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.622.622 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.622.622 0 11-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.72a.779.779 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 01-.973-.519.781.781 0 01.52-.972c3.632-1.102 8.147-.568 11.233 1.329a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.794c3.527-1.07 9.393-.863 13.101 1.333a.936.936 0 01-.941 1.62z"/></svg>
+        Inesperado — Jorge e Mateus
+      </a>
+    </div>
+  </div>
 
-<section class="card fade-up">
-<h2>💍 O Pedido</h2>
-<p>No dia 16 de novembro de 2025, vivemos um dos momentos mais especiais do nosso relacionamento: o início oficial da nossa história de amor.</p>
-<div class="gallery">
-<img src="imgs/pedido.jpg">
-</div>
-</section>
+  <!-- 3 Meses -->
+  <div class="month-card reveal">
+    <div class="month-card-header">
+      <div class="month-number">03</div>
+      <div class="month-title-block">
+        <p class="month-badge">3º Mês — Fevereiro de 2026</p>
+        <h2 class="month-title">O amor <em>que cresce</em></h2>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+    </div>
+    <div class="month-body">
+      <p class="month-text">Em nosso terceiro mês juntos, você começou a trabalhar e as aulas voltaram — a rotina ficou mais corrida, mas nosso amor foi crescendo cada vez mais. No primeiro fim de semana depois que você começou a trabalhar, fomos passear na Paulista para comemorar. Foi um dia muito especial. Comemoramos na minha casa, com minha família — e mesmo eu estando muito doente, foi um dia que me fez perceber o quanto eu te amo.</p>
+      <a class="music-btn" href="https://open.spotify.com/search/Escondendo%20o%20Ouro%20Ze%20Neto%20e%20Cristiano" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.622.622 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.622.622 0 11-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.72a.779.779 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 01-.973-.519.781.781 0 01.52-.972c3.632-1.102 8.147-.568 11.233 1.329a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.794c3.527-1.07 9.393-.863 13.101 1.333a.936.936 0 01-.941 1.62z"/></svg>
+        Escondendo o Ouro — Zé Neto e Cristiano
+      </a>
+    </div>
+  </div>
 
-<section class="card fade-up">
-<h2>🙏 Aparecida</h2>
-<p>Um passeio muito especial para agradecermos a Deus pela nossa união e por todas as bênçãos em nossas vidas.</p>
-<div class="gallery">
-<img src="imgs/aparecida1.jpeg">
-<img src="imgs/aparecida2.jpeg">
-</div>
-</section>
+  <!-- 4 Meses -->
+  <div class="month-card reveal">
+    <div class="month-card-header">
+      <div class="month-number">04</div>
+      <div class="month-title-block">
+        <p class="month-badge">4º Mês — Março de 2026</p>
+        <h2 class="month-title">Felizes no <em>simples</em></h2>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-slot"><img src="imgs/parque1.JPEG" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><img src="imgs/parque2.JPEG" onerror="this.parentElement.innerHTML='<div class=\'gallery-slot-placeholder\'><svg fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z\'/></svg><span>foto</span></div>'"></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+    </div>
+    <div class="month-body">
+      <p class="month-text">O quarto mês foi incrível. Passamos a Semana Santa juntos, fomos à procissão, fomos ao Parque Marisa. Um mês cheio de momentos inesquecíveis, onde fomos muito felizes no simples — e descobrimos que é nesses momentos que o amor se mostra mais verdadeiro.</p>
+      <a class="music-btn" href="https://www.youtube.com/results?search_query=Gaivotas+sertanejo" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Gaivotas
+      </a>
+    </div>
+  </div>
 
-<section class="card fade-up">
-<h2>🎄 Natal em Família</h2>
-<p>Em 24 de dezembro de 2025, celebramos juntos o Natal, compartilhando amor, alegria e união em família.</p>
-<div class="gallery">
-<img src="imgs/natal1.jpeg">
-<img src="imgs/natal2.jpeg">
-</div>
-</section>
+  <!-- 5 Meses -->
+  <div class="month-card reveal">
+    <div class="month-card-header">
+      <div class="month-number">05</div>
+      <div class="month-title-block">
+        <p class="month-badge">5º Mês — Abril de 2026</p>
+        <h2 class="month-title">Destinos <em>entrelaçados</em></h2>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+    </div>
+    <div class="month-body">
+      <p class="month-text">No dia 16 de abril foi o nosso 5º mês juntos e, por coincidência, foi o dia da minha formatura — isso tornou tudo ainda mais especial. Para mim, foi um sinal de que nossos destinos estão interligados pelo amor. Um pouco depois, fomos ao restaurante do Bob Esponja, um lugar onde você queria ir há muito tempo. Ver você feliz é a minha maior felicidade.</p>
+      <a class="music-btn" href="https://open.spotify.com/search/O%20nosso%20santo%20bateu%20Matheus%20e%20Kauan" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.622.622 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.622.622 0 11-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.72a.779.779 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 01-.973-.519.781.781 0 01.52-.972c3.632-1.102 8.147-.568 11.233 1.329a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.794c3.527-1.07 9.393-.863 13.101 1.333a.936.936 0 01-.941 1.62z"/></svg>
+        O Nosso Santo Bateu — Matheus e Kauan
+      </a>
+    </div>
+  </div>
 
-<section class="card fade-up">
-<h2>✈️ Primeira Viagem Juntos</h2>
-<p>No final do ano, fizemos nossa primeira viagem juntos. Foi uma semana inesquecível na Praia Grande, na melhor companhia do mundo.</p>
-<div class="gallery">
-<img src="imgs/viagem1.jpg">
-<img src="imgs/viagem2.jpeg">
-<img src="imgs/viagem3.jpeg">
-</div>
-</section>
+  <!-- 6 Meses -->
+  <div class="section-label"><span>O presente</span></div>
 
-<section class="card fade-up">
-<h2>🌿 Trilha</h2>
-<p>Este ano, nos aventuramos na trilha do Pico do Jaraguá. Apesar do frio na barriga, foi uma experiência divertida e inesquecível ao seu lado.</p>
-<div class="gallery">
-<img src="imgs/trilha1.jpeg">
-<img src="imgs/trilha2.jpeg">
-<img src="imgs/trilha3.jpeg">
-</div>
-</section>
+  <div class="month-card special-card reveal">
+    <div class="month-card-header">
+      <div class="month-number">06</div>
+      <div class="month-title-block">
+        <p class="month-badge">6º Mês — Maio de 2026 · Campos do Jordão</p>
+        <h2 class="month-title">Que venham <em>muitos mais</em></h2>
+      </div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+      <div class="gallery-slot"><div class="gallery-slot-placeholder"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span>foto</span></div></div>
+    </div>
+    <div class="month-body">
+      <p class="month-text">E enfim completamos 6 meses — estamos aqui em Campos, nossa quarta viagem juntos, e isso faz com que esses 6 meses já pareçam um ano. Que venham muitos mais meses e anos juntos. Sou muito feliz por estar ao seu lado. Você é simplesmente incrível, linda, atenciosa, carinhosa e amorosa, e a cada dia me faz uma pessoa melhor. Eu te amo muito, e quero passar o resto da minha vida ao seu lado, quero construir uma família com você, quero envelhecer ao seu lado, quero viver intensamente cada momento, e quero te fazer feliz todos os dias da minha vida. ❤️</p>
+      <a class="music-btn" href="https://www.youtube.com/results?search_query=Me+encontra+Charlie+Brown+Jr" target="_blank">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Me Encontra — Charlie Brown Jr
+      </a>
+    </div>
+  </div>
 
-<section class="card fade-up">
-<h2>📸 Momentos</h2>
-<p>Pequenos instantes, grandes lembranças. A felicidade está nos detalhes que vivemos juntos.</p>
-<div class="gallery">
-<img src="imgs/momentos1.jpeg">
-<img src="imgs/momentos2.jpeg">
-<img src="imgs/momentos3.jpeg">
-</div>
-</section>
+  <!-- ── PLANOS ── -->
+  <div class="section-label"><span>Nosso futuro</span></div>
 
-<section class="card fade-up">
-<h2>🏃‍♂️ Corrida</h2>
-<p>Nossa primeira corrida no Parque do Carmo, marcada por parceria, superação e muita alegria.</p>
-<div class="gallery">
-<img src="imgs/corrida1.PNG">
-<img src="imgs/corrida2.JPEG">
-<img src="imgs/corrida3.JPEG">
-</div>
-</section>
+  <div class="future-card reveal">
+    <h2>Planos que <em>nos esperam</em></h2>
+    <ul class="future-list">
+      <li>Continuar conhecendo o mundo ao seu lado</li>
+      <li>Assistir o Live Action de Enrolados com você</li>
+      <li>Te levar a um estádio de futebol</li>
+      <li>E como não poderia faltar — um dia teremos a nossa geladeira de 2 portas 🧊</li>
+    </ul>
+  </div>
 
-<section class="card fade-up">
-<h2>🌳 Dia de Parque</h2>
-<p>Algumas lembranças especiais do nosso dia no Parque Marisa, repleto de tranquilidade e amor.</p>
-<div class="gallery">
-<img src="imgs/parque1.JPEG">
-<img src="imgs/parque2.JPEG">
-<img src="imgs/parque3.JPEG">
-</div>
-</section>
+  <!-- ── PLAYLIST ── -->
+  <div class="section-label"><span>Nossa trilha sonora</span></div>
 
-<section class="card fade-up">
-<h2>⏳ Tempo Juntos</h2>
-<div class="timer">
-<div class="time-pill"><b id="months">0</b>meses</div>
-<div class="time-pill"><b id="days">0</b>dias</div>
-<div class="time-pill"><b id="hours">0</b>horas</div>
-<div class="time-pill"><b id="minutes">0</b>min</div>
-<div class="time-pill"><b id="seconds">0</b>seg</div>
-</div>
-<p style="color:#7a5c5c">Desde 16/11/2025 às 16:00</p>
-</section>
+  <div class="playlist-card reveal">
+    <div class="qr-box">
+      <a href="https://open.spotify.com/playlist/5IpxMIqnAyq3Dz2G55ADgg?si=x67qA-1BR72_VdNHdtO1Bg" target="_blank">
+      <img src="spotify-qr-code.png" style="width:110px; height:110px; display:block; border-radius:8px;">
+      </a>
+    </div>
+    <div class="playlist-text">
+      <h3>Nossa Playlist 🎵</h3>
+      <p>Nesse QR Code tem uma playlist com nossas músicas favoritas — para ouvir durante a viagem, quando estivermos longe um do outro, ou simplesmente para lembrar desses 6 meses juntos. Cada música tem uma história que é só nossa.</p>
+    </div>
+  </div>
 
-<section class="card fade-up">
-<h2>✨ Próximas Etapas</h2>
-<ul>
-<li>Em maio faremos nossa próxima viagem juntos.</li>
-<li>No futuro, quero estar ao seu lado na sua primeira viagem de avião.</li>
-<li>Nas próximas semanas, você terá uma nova surpresa, meu amor.</li>
-<li>E, como não poderia faltar, em breve teremos a nossa geladeira de duas portas.</li>
-</ul>
-<p>Conforme celebrarmos novos meses, esta página continuará sendo atualizada com a nossa história.</p>
-</section>
-
-<footer>
-<p>
-Obrigado por fazer parte da minha vida.<br>
-<strong>Eu te amo ❤️</strong>
-</p>
-</footer>
+  <!-- ── FOOTER ── -->
+  <footer class="reveal">
+    <span class="footer-heart">❤️</span>
+    <p>Obrigado por fazer parte da minha vida.</p>
+    <p style="margin-top:8px; font-size:20px;"><strong>Eu te amo ❤️</strong></p>
+  </footer>
 
 </div>
 
 <script>
-const startDate = new Date("2025-11-16T16:00:00");
-
-function updateTimer(){
-const now = new Date();
-let diff = now - startDate;
-
-const seconds = Math.floor(diff/1000)%60;
-const minutes = Math.floor(diff/60000)%60;
-const hours = Math.floor(diff/3600000)%24;
-const days = Math.floor(diff/86400000)%30;
-const months = Math.floor(diff/(86400000*30));
-
-document.getElementById("months").textContent = months;
-document.getElementById("days").textContent = days;
-document.getElementById("hours").textContent = hours;
-document.getElementById("minutes").textContent = minutes;
-document.getElementById("seconds").textContent = seconds;
+// ── TIMER ──
+const start = new Date("2025-11-16T16:00:00");
+function tick() {
+  const diff = Date.now() - start;
+  const s = Math.floor(diff / 1000) % 60;
+  const m = Math.floor(diff / 60000) % 60;
+  const h = Math.floor(diff / 3600000) % 24;
+  const d = Math.floor(diff / 86400000) % 30;
+  const mo = Math.floor(diff / (86400000 * 30));
+  document.getElementById("t-months").textContent = mo;
+  document.getElementById("t-days").textContent = d;
+  document.getElementById("t-hours").textContent = h;
+  document.getElementById("t-minutes").textContent = m;
+  document.getElementById("t-seconds").textContent = s;
 }
+setInterval(tick, 1000);
+tick();
 
-setInterval(updateTimer,1000);
-updateTimer();
-
-const observer = new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
-}
-});
-},{threshold:0.2});
-
-document.querySelectorAll(".fade-up").forEach(el=>{
-observer.observe(el);
-});
-
-document.querySelectorAll(".gallery img").forEach(img=>{
-observer.observe(img);
-});
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+}, { threshold: 0.08 });
+document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
 </script>
 
 </body>
